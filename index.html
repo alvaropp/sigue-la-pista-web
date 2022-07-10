@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" emacsmode="-*- markdown -*-">
+    <title>🔍 Sigue la Pista</title>
+    <link rel="icon" href="/favicon.ico" />
+</head>
+
+<body>
+    <img src="images/BackgroundPhoto_V1_smaller.jpeg">
+
+    <center style="text-transform:uppercase; font-weight: 100; font-size:6mm"><a
+            href="#busquedas">Búsquedas</a>&nbsp;|&nbsp;<a href="#rankings">Rankings</a>&nbsp;</a>&nbsp;|&nbsp;<a
+            href="#instrucciones">Instrucciones</a></center>
+
+
+    (#) Sigue la Pista
+
+    ⭐ El juego de pistas y rompecabezas que te enseñará los rincones más históricos de Madrid. 🔍
+
+    ![ ](images/Logo_V2_colour.png width="20%") Elige una de nuestras [Búsquedas](#busquedas) y utiliza tu móvil para
+    responder a las preguntas y avanzar de pista en pista mientras recorres distintas zonas de Madrid centro y aprendes
+    sobre su historia y sus personajes. ¡Compite contra los demás jugadores e intenta resolver la Búsqueda lo más rápido
+    posible!. Los equipos más rápidos de cada Búsqueda aparecen listados en el [ranking](#rankings).
+
+    Jugar es gratuito y solo tienes que instalar <a href="https://telegram.org/" target="_blank">Telegram</a> en tu
+    móvil,
+    una conocida aplicación de mensajería. Una vez la hayas instalado, solo tienes que escribir al <a
+        href="https://t.me/SigueLaPista_bot" target="_blank">Bot de Sigue la Pista</a> para empezar. Puedes leer
+    instrucciones detallas [aquí](#instrucciones).
+
+
+    (#) <a name="busquedas">Búsquedas</a>
+
+    (###) Sol
+
+    ![ ](images/sol_thumbnail.jpeg width="40%")
+    **Punto de inicio y final**: <a href="https://goo.gl/maps/KNmc2tNMFdceQ8wU6" target="_blank">Puerta del
+        Sol</a>.</br>
+    **Distancia recorrida**: 2.5km.</br>
+    **Duración**: una hora aproximadamente.</br>
+
+    (###) Santa Ana
+
+    ![ ](images/santaana_thumbnail.jpeg width="40%")
+    **Punto de inicio y final**: <a href="https://goo.gl/maps/j3pYDDmJ4YJjWmVS7" target="_blank">Plaza de Santa
+        Ana</a>.</br>
+    **Distancia recorrida**: 2.5km.</br>
+    **Duración**: una hora aproximadamente.</br>
+
+
+    (#) <a name="rankings">Rankings</a>
+
+    (###) Sol
+
+    <div id="ranking-table-sol"></div>
+
+    (###) Santa Ana
+
+    <div id="ranking-table-santaana"></div>
+
+    <script>
+        fetch('https://sigue-la-pista-rankings.herokuapp.com/rankings')
+            .then(res => res.json())
+            .then(data => renderAllRankings(data));
+
+        function renderAllRankings(allRankings) {
+            renderRankingTable("ranking-table-sol", allRankings["Sol"]);
+            renderRankingTable("ranking-table-santaana", allRankings["Santa Ana"]);
+        }
+
+        function renderRankingTable(div_id, rankings) {
+            var table = document.createElement("table")
+            var tr = document.createElement('tr');
+            tr.innerHTML = '<th></th>' + '<th>Equipo</th>' + '<th>Tiempo</th>';
+            table.appendChild(tr);
+            rankings.forEach(function (team, ii) {
+                var tr = document.createElement('tr');
+                ii++;
+                tr.innerHTML = '<td>' + ii + '</td>' + '<td>' + team["team_name"] + '</td>' + '<td>' + team["time"] + '</td>'
+                table.appendChild(tr);
+            });
+            document.getElementById(div_id).appendChild(table);
+        }
+    </script>
+
+    (#) <a name="instrucciones">Instrucciones </a>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+</body>
